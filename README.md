@@ -44,7 +44,9 @@ A aplicação possui uma arquitetura intuitiva e genérica para os diversos tipo
 
 ### Components e Containers
 
-Cada componente e container criado dentro da aplicação deve conter a mesma estrutura dos modelos de exemplo, sendo eles o componente Example e o container ExampleExample
+Cada componente e container criado dentro da aplicação deve conter a mesma estrutura dos modelos de exemplo, sendo eles o componente Example e o container ExampleExample.
+
+Para estilização, caso prefira utilizar Styled Components ao invés de Sass, o uso será permitido.
 
 ## Atividade
 
