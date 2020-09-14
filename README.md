@@ -1,4 +1,4 @@
-# Teste AutonoDev para frontend.
+# Teste para frontend
 
 ## Instruções iniciais
 
