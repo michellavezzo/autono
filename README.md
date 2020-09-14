@@ -1,68 +1,75 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Teste AutonoDev para frontend.
 
-## Available Scripts
+## Instruções iniciais
 
-In the project directory, you can run:
+Parabéns por chegar até aqui. Agora, seguem algumas instruções para o teste:
+<ol>
+<li>Você deverá clonar o projeto para seu git, seja ele diretamente, ou clonando para sua máquina e inserindo outra origem;</li>
+<li>Existem arquivos de <i>lint</i> dentro do projeto que devem ser utilizados para organização do seu código. Para isso, verifique as extensões do seu VSCode se suportam os mesmos;</li>
+<li>É importante que, na pasta <b>public</b>, você insira seu nome juntamente à aplicação e altere as imagens da logo da plataforma para alguma do seu gosto.</li>
+<li>Utilize ao máximo os componentes do Bootstrap que achar necessário, podendo estilizá-los da sua maneira.</li>
+</ol>
 
-### `yarn start`
+## Scripts disponíveis
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Na aplicação teste, você deverá executar os comandos oferecidos pelo <b>yarn</b>
+como <i>install</i>, <i>start</i>, e etc.
+Por padrão, a aplicação será executada em [http://localhost:3000](http://localhost:3000).
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Arquitetura da aplicação
 
-### `yarn test`
+A aplicação possui uma arquitetura intuitiva e genérica para os diversos tipos de componentes, sendo estes separados por pastas e arquivos com nomes sugestivos, como mostram os exemplos dentro do projeto.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Pastas
 
-### `yarn build`
+<ul>
+<li><b>components:</b> Pastas de componentes criados na aplicação. Um conjunto de componentes forma um <b>container</b>; </li>
+<li><b>containers:</b> Pastas de containers que agrupam um conjunto de <b>components</b>; </li>
+<li><b>css:</b> Folhas de estilo de componentes das dependências da aplicação; </li>
+<li><b>data:</b> Arquivos utilizados dentro da aplicação; </li>
+<li><b>environment:</b> Informações como versão da aplicação e variáveis de ambiente; </li>
+<li><b>fonts:</b> Fontes de terceiros utilizadas na aplicação; </li>
+<li><b>images:</b> Imagens utilizadas na aplicação; </li>
+<li><b>routes:</b> Rotas públicas e privadas da aplicação; </li>
+<li><b>services:</b> Serviços para a aplicação como <i>auth</i> para autenticação, <i>functions</i> para funções genéricas, <i>mask</i> para máscaras de inputs, <i>types</i> para tipos de dados e <i>validation</i> para validações; </li>
+<li><b>store:</b> Redux com <i>Ducks Pattern</i>, caso ache necessário. </li>
+</ul>
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Arquivos 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+<ul>
+<li><b>common:</b> Componentes de estilo que serão herdados na aplicação como um todo, como <i>body</i>, <i>font-family</i> e etc; </li>
+<li><b>mixin:</b> Cores e efeitos que serão importadas nos arquivos de estilização de cada componente caso necessário. </li>
+</ul>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Components e Containers
 
-### `yarn eject`
+Cada componente e container criado dentro da aplicação deve conter a mesma estrutura dos modelos de exemplo, sendo eles o componente Example e o container ExampleExample
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Atividade
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Baseado na geografia de João Pessoa - PB, você receberá na pasta <b>data</b> um arquivo em JSON contendo uma lista de zonas que possuem um conjunto de bairros únicos da cidade. As zonas são representadas pela sua numeração de id, sendo "9ª zona" a <i>zone</i> de número 9, por exemplo, e o bairro dentro da zona representado pelo seu nome, como "Varadouro".
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Para identificar um morador da cidade, o sistema deverá conter uma área para login, que autentica um usuário e permite que ele envie uma mensagem para um dos bairros listados pela plataforma. Haverá uma área para o usuário autenticado visualizar seu nome caso esteja logado na plataforma, validando assim seu login.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+O usuário não logado na plataforma poderá pesquisar (numa barra de pesquisa) por algum bairro de forma genérica estilo Google, ou seja, você receberá a informação do campo pesquisa e fará uma busca genérica dentro dos dados fornecidos.
 
-## Learn More
+Ao selecionar um bairro de determinada zona, o usuário poderá escrever uma mensagem e enviar para o respectivo bairro apenas se o mesmo estiver logado no sistema. Caso não esteja, o sistema deve solicitar que seja feito o login através de uma modal e, após feito o login, permitir o envio da mensagem.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+O objetivo do sistema é coletar uma mensagem sobre um bairro selecionado pelo usuário autenticado na plataforma, permitindo que ele encontre o bairro através de listagem dos dados com zonas como categorias e os bairros sendo subcategorias, e utilizando barra de busca para todos os dados existentes nas informações fornecidas, inserindo estas informações no formulário de envio de mensagem após o usuário selecionar.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+A mensagem deve ser exibida em uma modal, identificando a zona selecionada, o id e nome do bairro, o nome do usuário e a respectiva mensagem.
 
-### Code Splitting
+## Observações
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+<ul>
+<li> A autenticação é <b>estática</b>, ou seja, você irá inventar um login e senha para acessar a área privada da plataforma que exiba seu nome.</li>
+<li> O login pode ser feito utilizando armazenamento de informações na LocalStorage, para que haja atualização da página e não perca o acesso; </li>
+<li> Existe um arquivo chamado <i>auth</i> na pasta <b>services</b> que contém um modelo funcional de validação de login (se está logado ou não) baseado em token; </li>
+<li> Dentro da <b>store</b>, existe um componente de usuário base usando Redux para que você insira as ações ou informações que desejar; </li>
+<li> É aconselhável que a autenticação seja feita utilizando Redux ou ContextAPI; </li>
+<li> Todas as variáveis e funções deverão ser nomeadas em <b>inglês</b>, de modo 
+que seja – minimamente – compreensível; </li>
+<li> A arquitetura da aplicação base deve ser respeitada para criar os componentes de sua aplicação;</li>
+<li> É fundamental que os comentários no código sejam o mais compreensível e menos verboso possível.</li>
+</ul>
