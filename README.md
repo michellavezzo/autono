@@ -27,7 +27,6 @@ A aplicação possui uma arquitetura intuitiva e genérica para os diversos tipo
 <li><b>containers:</b> Pastas de containers que agrupam um conjunto de <b>components</b>; </li>
 <li><b>css:</b> Folhas de estilo de componentes das dependências da aplicação; </li>
 <li><b>data:</b> Arquivos utilizados dentro da aplicação; </li>
-<li><b>environment:</b> Informações como versão da aplicação e variáveis de ambiente; </li>
 <li><b>fonts:</b> Fontes de terceiros utilizadas na aplicação; </li>
 <li><b>images:</b> Imagens utilizadas na aplicação; </li>
 <li><b>routes:</b> Rotas públicas e privadas da aplicação; </li>
@@ -39,7 +38,9 @@ A aplicação possui uma arquitetura intuitiva e genérica para os diversos tipo
 
 <ul>
 <li><b>common:</b> Componentes de estilo que serão herdados na aplicação como um todo, como <i>body</i>, <i>font-family</i> e etc; </li>
-<li><b>mixin:</b> Cores e efeitos que serão importadas nos arquivos de estilização de cada componente caso necessário. </li>
+<li><b>mixin:</b> Cores e efeitos que serão importadas nos arquivos de estilização de cada componente caso necessário; </li>
+</ul>
+<li><b>.env:</b> Informações como versão da aplicação e variáveis de ambiente. </li>
 </ul>
 
 ### Components e Containers
@@ -48,7 +49,7 @@ Cada componente e container criado dentro da aplicação deve conter a mesma est
 
 Para estilização, caso prefira utilizar Styled Components ao invés de Sass, o uso será permitido.
 
-## Atividade
+<!-- ## Atividade
 
 Baseado na geografia de João Pessoa - PB, você receberá na pasta <b>data</b> um arquivo em JSON contendo uma lista de zonas que possuem um conjunto de bairros únicos da cidade. As zonas são representadas pela sua numeração de id, sendo "9ª zona" a <i>zone</i> de número 9, por exemplo, e o bairro dentro da zona representado pelo seu nome, como "Varadouro".
 
@@ -60,9 +61,9 @@ Ao selecionar um bairro de determinada zona, o usuário poderá escrever uma men
 
 O objetivo do sistema é coletar uma mensagem sobre um bairro selecionado pelo usuário autenticado na plataforma, permitindo que ele encontre o bairro através de listagem dos dados com zonas como categorias e os bairros sendo subcategorias, e utilizando barra de busca para todos os dados existentes nas informações fornecidas, inserindo estas informações no formulário de envio de mensagem após o usuário selecionar.
 
-A mensagem deve ser exibida em uma modal, identificando a zona selecionada, o id e nome do bairro, o nome do usuário e a respectiva mensagem.
+A mensagem deve ser exibida em uma modal, identificando a zona selecionada, o id e nome do bairro, o nome do usuário e a respectiva mensagem. -->
 
-## Observações
+<!-- ## Observações
 
 <ul>
 <li> A autenticação é <b>estática</b>, ou seja, você irá inventar um login e senha para acessar a área privada da plataforma que exiba seu nome.</li>
@@ -74,4 +75,4 @@ A mensagem deve ser exibida em uma modal, identificando a zona selecionada, o id
 que seja – minimamente – compreensível; </li>
 <li> A arquitetura da aplicação base deve ser respeitada para criar os componentes de sua aplicação;</li>
 <li> É fundamental que os comentários no código sejam o mais compreensível e menos verboso possível.</li>
-</ul>
+</ul> -->
