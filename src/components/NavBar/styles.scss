@@ -1,0 +1,23 @@
+@import '../../mixin.scss';
+@import '../../common.scss';
+
+.btn-teste {
+    padding: .375rem .75rem !important;
+    border: 1px solid $darkRed !important;
+    color: white !important;
+    background-color: $red !important;
+    border-color: $darkRed !important;
+    border-radius: 2px !important;
+}
+
+// transition: color .15s ease-in-out,
+//         background-color .15s ease-in-out,
+//         border-color .15s ease-in-out,
+//         box-shadow .15s ease-in-out !important;
+
+.btn-danger{
+    border-radius: 2px !important;
+} 
+.mr-sm-2 {
+    border-radius: 2px !important;
+}
