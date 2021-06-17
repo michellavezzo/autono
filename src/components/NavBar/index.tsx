@@ -4,16 +4,15 @@ import './styles.scss';
 //Bootstrap
 import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
+import { Form, FormControl, Navbar, NavDropdown } from "react-bootstrap";
 
 //Api 
 import api from "../../services/api";
-import { Form, FormControl, Navbar, NavDropdown } from "react-bootstrap";
 
 //img
 import Logo from '../../assets/LOGO-LIVRO.png'; //adicionar star icon 
 
 const NavBar: React.FC = () => {
-
 
     return(
         <>       
