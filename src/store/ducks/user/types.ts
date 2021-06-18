@@ -8,6 +8,8 @@ export enum UserTypes {
   REMOVE_USER = '@constructionCompany/REMOVE_USER',
 }
 
+
+
 /**
  * Data types
  * @token : token of user
@@ -28,3 +30,4 @@ export interface User {
 export interface UserState {
   user: User
 }
+

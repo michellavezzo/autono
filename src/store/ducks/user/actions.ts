@@ -1,6 +1,6 @@
 import { action } from 'typesafe-actions';
 import {
-  UserTypes, UserState,
+  UserTypes, UserState
 } from './types';
 
 export const updateUser = (data: UserState) => {
@@ -10,3 +10,8 @@ export const updateUser = (data: UserState) => {
 export const removeUser = () => {
   action(UserTypes.REMOVE_USER);
 };
+
+
+
+//DISPATCH
+
