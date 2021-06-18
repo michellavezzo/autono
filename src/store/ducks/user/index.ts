@@ -15,10 +15,11 @@ const reducer: Reducer<UserState> = (
   action,
 ) => {
   const updatedUserState = state;
-
+  console.log('passando user pelo reducer no index.ts 1 ', action);
   switch (action.type) {
     case UserTypes.UPDATE_USER:
       updatedUserState.user = action.data.user;
+      console.log('passando pelo reducer user no index.ts 2');
       // localStorage.setItem(
       //   environment.REACT_APP_LOCAL_STORAGE_USER_AUTH,
       //   JSON.stringify(),
@@ -36,8 +37,6 @@ const reducer: Reducer<UserState> = (
       return state;
   }
 };
-
-
 
 export default reducer;
 

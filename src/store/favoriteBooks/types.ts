@@ -1,31 +1,30 @@
-
-
 /**
  * Action types
- * @SET_BOOKS
+ * @...
  */
 export enum BookTypes {
-  SET_BOOKS = '@shelfBooks/SET_BOOKS',
+  ADD_FAV_BOOK = '@shelfBooks/ADD_FAVORITE_BOOK',
+  REMOVE_FAV_BOOK = '@shelfBooks/REMOVE_FAVORITE_BOOK',
 }
+
 /**
  * State type
  * @data : Book
- * @length : number
  */
-export interface BookState {
-  book: Book[];
-  length: number;
+
+export interface FavoriteBookState {
+  book: Book[]
 }
 
 /**
  * Data types
- * @id : id
- * @volumeInfo : Book Info 
+ * @id : token of user
+ * @volumeInfo : name of user
  */
 
 export interface Book {
-  id: string,
-  volumeInfo: BookDescription,
+  id: string
+  volumeInfo: BookDescription
 }
 
 interface BookDescription{
@@ -35,7 +34,7 @@ interface BookDescription{
   publisher?: string
   publishedDate?: string
   description?: string
-  pageCount?: number
+  pageCount: number
   categories: []
   averageRating?: number
   ratingsCount?: number

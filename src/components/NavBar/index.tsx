@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import './styles.scss';
 
 //Bootstrap
@@ -9,31 +10,62 @@ import { Form, FormControl, Navbar, NavDropdown } from "react-bootstrap";
 //Hooks, redux
 import { useDispatch } from "react-redux";
 
-
 //Api 
 import api from "../../services/api";
 import { env } from '../../env/env';
 
 //img
 import Logo from '../../assets/LOGO-LIVRO.png'; //adicionar star icon 
-import { useState } from "react";
+
+//Interface (types)
+import { Book, BookState } from "../../store/ducks/books/types";
+import { setBooks } from "../../store/ducks/books/actions";
 
 const NavBar: React.FC = () => {
 
-    const dispacth = useDispatch();
+    const dispatch = useDispatch();
 
     const [bookSearch, setBookSearch] = useState<string>('');
+    const [atualBooks, setAtualBooks] = useState<Book[]>([]);
+    const [responseLenght, setResponseLenght] = useState<number>(0);
+
     console.log(bookSearch);
-    
+    //useEWffect
     const search = async () => {
         console.log('dentro do search');
         if (bookSearch !==''){
-            console.log('dentro do if');
-            const response =await api.get(`volumes?q=${bookSearch}&key=${env.GOOGLE_API_KEY}`);
-
-            console.log(response);
+            await api.get(`volumes?q=${bookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=40`)
+            .then( response => {
+                setAtualBooks(response.data.items);
+                setResponseLenght(response.data.totalItems);
+                
+                //TODO: i need to know if this is working correctly, search! NEED TIME TO SHOW LOGS.
+                
+                updateBookList(response.data.items, response.data.totalItems);
+                
+                
+            }).catch(err =>{
+                console.log(err);
+            });       
+    
         }
         console.log('fora do if');
+    }
+
+    function updateBookList(book: Book[], totalItems: number ) {
+        
+        return dispatch(setBooks({
+            book: book,
+            length: totalItems,
+        }));
+        
+    }
+
+
+
+    const teste = () => {
+        console.log(atualBooks);
+        console.log(responseLenght);
     }
 
     return(
@@ -46,7 +78,7 @@ const NavBar: React.FC = () => {
                         type="text" 
                         placeholder="Comece por aqui"
                         className="mr-sm-2"
-                        value={bookSearch}
+                        onSubmit={search}
                         onChange={(event:any) => setBookSearch(event.target.value)} 
                         />
                     <Button 
@@ -60,7 +92,7 @@ const NavBar: React.FC = () => {
                 <Nav className="ml-auto">
                     <Button 
                         variant="btn btn-danger"
-                        //onClick={search}
+                        onClick={teste}
                     >
                         <img src="{Logo}" alt=" " /> 
                         Favoritos
