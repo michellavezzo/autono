@@ -64,26 +64,20 @@ const NavBar: React.FC = () => {
         
     }
 
-
-
-    const teste = () => {
-        console.log(atualBooks);
-        console.log(responseLenght);
-    }
-
     return(
         <>       
             <Navbar bg="light" expand="lg">
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Form inline>
+                    <Form 
+                    inline
+                    onSubmit={search}
+                    >
                     <FormControl 
                         type="text" 
                         placeholder="Comece por aqui"
-                        className="mr-sm-2"
-                        onSubmit={(event: any)  => search(event)}
+                        className="mr-sm-2"       
                         onChange={(event) => setBookSearch(event.target.value)} 
-
                         />
                     <Button 
                         variant="btn btn-danger"
@@ -96,7 +90,7 @@ const NavBar: React.FC = () => {
                 <Nav className="ml-auto">
                     <Button 
                         variant="btn btn-danger"
-                        onClick={teste} //colocar event
+                        onClick={() => {}} //colocar event
                     >
                         <img src="{Logo}" alt=" " /> 
                         Favoritos
