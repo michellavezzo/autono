@@ -6,18 +6,17 @@ const INITIAL_STATE: BookState = {
   length: 0
 }
 
-
 const reducer: Reducer<BookState> = (
   state = INITIAL_STATE,
   action,
 ) => {
-  const updatedBookState = state;
+  let updatedBookState = state;
   
   switch (action.type) {
     
     case BookTypes.SET_BOOKS:
-      updatedBookState.book = action.payload.book;
-
+      updatedBookState = action.payload.data;
+      console.log('nome aleatorio do reduce: ', updatedBookState);
       return { ...state, ...updatedBookState};
 
     default:
@@ -30,7 +29,7 @@ export default reducer;
 
 
 // const INITIAL_STATE: BookState = {
-//   book: [{
+//   book: {
 //     id: '',
 //     volumeInfo: {
 //       title: '',
@@ -50,6 +49,11 @@ export default reducer;
 //       buyLink: '',
 //       previewLInk: '',          
 //     }   
-//   }],
+//   },
+//   length: 0
+// }
+
+// const INITIAL_STATE: BookState = {
+//   book: [],
 //   length: 0
 // }

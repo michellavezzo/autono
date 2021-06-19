@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { FormEvent, useEffect } from "react";
 import { useState } from "react";
 import './styles.scss';
 
@@ -31,13 +31,16 @@ const NavBar: React.FC = () => {
 
     console.log(bookSearch);
     //useEWffect
-    const search = async () => {
+    const search = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault(); //prevenir comportamento padrão de recarregfar a pageina 
         console.log('dentro do search');
         if (bookSearch !==''){
             await api.get(`volumes?q=${bookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=40`)
             .then( response => {
                 setAtualBooks(response.data.items);
                 setResponseLenght(response.data.totalItems);
+
+                console.log('RESPONSE ADAS: ', response.data.items)
                 
                 //TODO: i need to know if this is working correctly, search! NEED TIME TO SHOW LOGS.
                 
@@ -78,12 +81,13 @@ const NavBar: React.FC = () => {
                         type="text" 
                         placeholder="Comece por aqui"
                         className="mr-sm-2"
-                        onSubmit={search}
-                        onChange={(event:any) => setBookSearch(event.target.value)} 
+                        onSubmit={(event: any)  => search(event)}
+                        onChange={(event) => setBookSearch(event.target.value)} 
+
                         />
                     <Button 
                         variant="btn btn-danger"
-                        onClick={search}
+                        onClick={(event: any)  => search(event)}
                         >
                         Buscar
                     </Button>
@@ -92,7 +96,7 @@ const NavBar: React.FC = () => {
                 <Nav className="ml-auto">
                     <Button 
                         variant="btn btn-danger"
-                        onClick={teste}
+                        onClick={teste} //colocar event
                     >
                         <img src="{Logo}" alt=" " /> 
                         Favoritos
