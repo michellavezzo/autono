@@ -32,13 +32,13 @@ const NavBar: React.FC = () => {
     const [bookSearch, setBookSearch] = useState<string>('');
     const [randomBookSearch, setRandomBookSearch] = useState<string>('');
     const [atualBooks, setAtualBooks] = useState<Book[]>([]);
-    // const [responseLenght, setResponseLenght] = useState<number>(0);
-    const [firstAccess, setFirstAcces] = useState<boolean>(true);
+    const [initialState, setInitialState] = useState<boolean>(false);
     
     //random book fake name.jobArea/jobType/ random.objectElement
     console.log(bookSearch);
+    
     //useEWffect
-    const search = async (event: FormEvent<HTMLFormElement>) => {
+    const search = useCallback(async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault(); //prevenir comportamento padrão de recarregfar a pageina 
         console.log('dentro do search');
         if (bookSearch !==''){
@@ -46,33 +46,41 @@ const NavBar: React.FC = () => {
             .then( response => {
                 // setAtualBooks(response.data.items);
                 // setResponseLenght(response.data.totalItems); // apagar dps
-                console.log('RESPONSE ADAS: ', response.data.items)
-                setFirstAcces(false);               
-                updateBookList(response.data.items, response.data.totalItems);
-                
-                
+                console.log('RESPONSE ADAS: ', response.data.items)               
+                updateBookList(response.data.items, response.data.totalItems, bookSearch);
+             
             }).catch(err =>{
                 console.log(err);
             });       
-    
         } 
-    }    
-
+    },[bookSearch]);    
+    
     useEffect(() => {
-        const randTerm = () => {
-            if(faker.datatype.boolean()){
-                console.log('FAKER SEARCH TERM: ', faker.name.jobArea());  
-                setRandomBookSearch(faker.name.jobArea());         
-            } else {
-                console.log('FAKER SEARCH TERM: ', faker.random.word());   
-                setRandomBookSearch(faker.random.word());    
-            } 
-        }    
         randTerm();
     },[atualBooks]);
- 
-    const randomSearch = useCallback(async (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); //prevenir comportamento padrão de recarregfar a pageina 
+    //GETTING RANDOM BOOKS TO INITIAL STATE
+
+    useEffect(() => {
+        randTerm();
+        setInitialState(true);
+         
+    },[]);
+    useEffect(() => {
+        randomSearch();       
+    },[initialState]);
+    
+    const randTerm = () => {
+        if(faker.datatype.boolean()){
+            console.log('FAKER SEARCH TERM: ', faker.name.jobArea());  
+            setRandomBookSearch(faker.name.jobArea());         
+        } else {
+            console.log('FAKER SEARCH TERM: ', faker.random.word());   
+            setRandomBookSearch(faker.random.word());    
+        } 
+    }    
+    
+    const randomSearch = useCallback(async () => {
+        //event.preventDefault(); //prevenir comportamento padrão de recarregfar a pageina 
         console.log('termo dentro do random: ', randomBookSearch)
         console.log('dentro do randomBook');
 
@@ -81,25 +89,27 @@ const NavBar: React.FC = () => {
             // setAtualBooks(response.data.items);
             // setResponseLenght(response.data.totalItems); // apagar dps
             console.log('RESPONSE: ', response.data.items)            
-            updateBookList(response.data.items, response.data.totalItems);
-                
+            updateBookList(response.data.items, response.data.totalItems, randomBookSearch);   
         }).catch(err =>{
-            console.log(err);
-        });                           
+            console.log('randomSearch ERROR:', err);
+        });
+                                   
     },[randomBookSearch]);
         
 
-    function updateBookList(book: Book[], totalItems: number ) {
+    function updateBookList(book: Book[], totalItems: number, searchTerm: string ) {
         setAtualBooks(book);
+        // const searchTerm= isRandomSearch ? bookSearch : randomBookSearch;
         return dispatch(setBooks({
             book: book,
             length: totalItems,
+            searchTerm: searchTerm,
         }));
         
     }
 
     return(
-        <>       
+        <>    
             <Navbar bg="light" expand="lg">
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
@@ -121,7 +131,7 @@ const NavBar: React.FC = () => {
                     </Button>
                     <Button 
                         variant="btn btn-danger btn"
-                        onClick={(event: any)  => randomSearch(event)}
+                        onClick={(event: any)  => randomSearch()}
                         >
                         ME ENCONTRE
                     </Button>
@@ -130,7 +140,7 @@ const NavBar: React.FC = () => {
                 <Nav className="ml-auto">
                     <Button 
                         variant="btn btn-danger"
-                        onClick={(event: any)  => randomSearch(event)}
+                        onClick={(event: any)  => randomSearch()}
                     >
                         <img src="{Logo}" alt=" " /> 
                         Favoritos

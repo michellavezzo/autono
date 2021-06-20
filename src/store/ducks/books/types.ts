@@ -15,6 +15,7 @@ export enum BookTypes {
 export interface BookState {
   book: Book[];
   length: number;
+  searchTerm: string;
 }
 
 /**

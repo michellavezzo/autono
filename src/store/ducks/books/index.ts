@@ -3,7 +3,8 @@ import { BookState, BookTypes } from './types';
 
 const INITIAL_STATE: BookState = {
   book: [],
-  length: 0
+  length: 0,
+  searchTerm: '',
 }
 
 const reducer: Reducer<BookState> = (
