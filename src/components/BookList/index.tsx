@@ -35,9 +35,11 @@ const Booklist: React.FC = () => {
             <div className="booklist">
             <h1>Livros sobre: {books.searchTerm}</h1>
             <ul>
-            {books.book && books.book.length && books.book.map((book) => (
+            {( books.length ==0 )? 'DEU BOM!' : books.book && books.book.length && books.book.map((book) => (
                 <li>
-                    <img src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : Logo } alt={book.volumeInfo.title} />
+                    <img 
+                    src={book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.thumbnail : Logo } 
+                    alt={book.volumeInfo.title} />
                     {book.volumeInfo.title}
                     
                 </li>
