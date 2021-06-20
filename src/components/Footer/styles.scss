@@ -1,0 +1,32 @@
+@import '../../mixin.scss';
+@import '../../common.scss';
+
+.footer-line {
+    background-color: $red;
+    width: auto;
+    height: 15px;
+    
+}
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    margin: 12px;
+
+    h4{
+        font-family: 'Roboto Condensed', sans-serif;
+    }
+
+    .left {
+        flex-direction: row;
+        display: flex;
+        img {
+            height: 150px;
+            border-radius: 2px;
+        }
+        .developer-info {
+            margin-left: 12px;
+        }
+
+
+    }
+}
