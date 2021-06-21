@@ -1,9 +1,13 @@
 /**
  * Action types
  * @SET_BOOKS
+ * @ADD_FAV_BOOK
+ * @REMOVE_FAV_BOOK
  */
 export enum BookTypes {
   SET_BOOKS = '@shelfBooks/SET_BOOKS',
+  ADD_FAV_BOOK = '@shelfBooks/ADD_FAV_BOOK',
+  REMOVE_FAV_BOOK = '@shelfBooks/REMOVE_FAV_BOOK',
 }
 /**
  * State type
@@ -11,9 +15,9 @@ export enum BookTypes {
  * @length : number
  */
 export interface BookState {
-  book: Book[];
-  length: number;
-  searchTerm: string;
+  book?: Book[];
+  length?: number;
+  searchTerm?: string;
 }
 
 /**
@@ -24,6 +28,7 @@ export interface BookState {
 
 export interface Book {
   id: string;
+  favorite: boolean;
   volumeInfo: BookDescription;
 }
 

@@ -16,6 +16,7 @@ import { env } from '../../env/env';
 
 //img
 import Logo from '../../assets/LOGO-LIVRO.png'; //adicionar star icon
+import BookMark from '../../assets/bookmark-outline.svg';
 
 //Interface (types)
 import { Book, BookState } from '../../store/ducks/books/types';
@@ -158,7 +159,7 @@ const NavBar: React.FC = () => {
               variant="btn btn-danger"
               onClick={(event: any) => randomSearch()}
             >
-              <img src="{Logo}" alt=" " />
+              <img src={BookMark} alt="star" />
               Favoritos
             </Button>
           </Nav>
