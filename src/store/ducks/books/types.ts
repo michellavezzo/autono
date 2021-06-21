@@ -1,5 +1,3 @@
-
-
 /**
  * Action types
  * @SET_BOOKS
@@ -21,30 +19,29 @@ export interface BookState {
 /**
  * Data types
  * @id : id
- * @volumeInfo : Book Info 
+ * @volumeInfo : Book Info
  */
 
 export interface Book {
-  id: string,
-  volumeInfo: BookDescription,
+  id: string;
+  volumeInfo: BookDescription;
 }
 
-interface BookDescription{
-  title: string
-  subtitle?: string
-  authors: []
-  publisher?: string
-  publishedDate?: string
-  description?: string
-  pageCount?: number
-  categories: []
-  averageRating?: number
-  ratingsCount?: number
+interface BookDescription {
+  title: string;
+  subtitle?: string;
+  authors: [];
+  publisher?: string;
+  publishedDate?: string;
+  description?: string;
+  pageCount?: number;
+  categories: [];
+  averageRating?: number;
+  ratingsCount?: number;
   imageLinks: {
-    thumbnail: string
-    smallThumbnail?: string
-  }
-  buyLink?: string
-  previewLInk?: string
-
+    thumbnail: string;
+    smallThumbnail?: string;
+  };
+  buyLink: string;
+  previewLink: string;
 }

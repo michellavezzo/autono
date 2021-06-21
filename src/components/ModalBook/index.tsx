@@ -36,7 +36,6 @@ const ModalBook: React.FC<Props> = ({ book, show, onHide }) => {
           <h6>{book.volumeInfo.subtitle}</h6>
         </Modal.Title>
       </Modal.Header>
-
       <Modal.Body>
         <div className="left">
           <img
@@ -44,20 +43,30 @@ const ModalBook: React.FC<Props> = ({ book, show, onHide }) => {
             alt={book.volumeInfo.title}
           />
           <div className="bookInfo">
-            Descrição:
+            <h5>Descrição:</h5>
             <h6>{book.volumeInfo.description}</h6>
-            Autor:
+            <h5>Autor:</h5>
             <h6>{book.volumeInfo.authors}</h6>
-            Editora:
+            <h5>Editora:</h5>
             <h6>{book.volumeInfo.publisher}</h6>
+            <h5>Número de páginas:</h5>
+            <h6>{book.volumeInfo.pageCount}</h6>
+            <h5>Categoria:</h5>
+            <h6>{book.volumeInfo.categories}</h6>
+            <h5>Classificação:</h5>
+            <h6>
+              {book.volumeInfo.ratingsCount}/{book.volumeInfo.averageRating}
+            </h6>
           </div>
         </div>
         <div className="right"></div>
       </Modal.Body>
-
       <Modal.Footer>
-        {/* <Button variant="secondary">Close</Button> posso usar href qq coisa
-        <Button variant="primary">Save changes</Button> */}
+        <a href={book.volumeInfo.previewLink} target="_blank">
+          <Button variant="primary" size="lg" block>
+            Veja mais!
+          </Button>
+        </a>
       </Modal.Footer>
     </Modal>
   );
