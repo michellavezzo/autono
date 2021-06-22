@@ -29,6 +29,7 @@ const INITIAL_STATE: BookState = {
   length: 0,
   searchTerm: '',
   favoriteBooks: [],
+  atualPage: 1,
 };
 
 const reducer: Reducer<BookState> = (state = INITIAL_STATE, action) => {
@@ -40,9 +41,12 @@ const reducer: Reducer<BookState> = (state = INITIAL_STATE, action) => {
       const localStorageBooks = JSON.parse(
         localStorage.getItem('favoriteBooks') as string,
       );
-      updatedBookState.favoriteBooks = localStorageBooks;
 
-      return { ...state, ...updatedBookState };
+      return {
+        ...state,
+        ...updatedBookState,
+        favoriteBooks: localStorageBooks ?? [],
+      };
 
     case BookTypes.ADD_FAV_BOOK: // add
       const indexAdd = state.book?.findIndex(

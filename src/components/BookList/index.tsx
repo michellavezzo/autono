@@ -19,7 +19,12 @@ import Logo from '../../assets/LOGO-LIVRO.png';
 import BookMarkFavorite from '../../assets/bookmark.svg';
 import BookMarkNotFavorite from '../../assets/bookmark-outline.svg';
 import { Spinner } from 'react-bootstrap';
-import { removeFavBook, addFavBook } from '../../store/ducks/books/actions';
+import {
+  removeFavBook,
+  addFavBook,
+  setBooks,
+} from '../../store/ducks/books/actions';
+import MyPagination from '../Pagination';
 
 const Booklist: React.FC = () => {
   const dispatch = useDispatch();
@@ -36,6 +41,11 @@ const Booklist: React.FC = () => {
     localStorageBooks ?? ({} as Book),
   );
   const [statefavBook, setStateFavBook] = useState<boolean>(false);
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(books.length ?? 1);
+  const [postsPerPage] = useState(6);
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   function updateFavoriteBook(book: Book) {
     if (books && books.length && books.book) {
@@ -62,7 +72,20 @@ const Booklist: React.FC = () => {
     //console.log('BOOK STATE', !selectedFavBook.favorite);
   }, [selectedFavBook]);
 
-  //useCallback(() => {}, [books]);
+  function updatePage(page: number) {
+    dispatch(
+      setBooks({
+        atualPage: page,
+      }),
+    );
+  }
+  useEffect(() => {
+    updatePage(currentPage);
+    console.log('Current Page', currentPage);
+    //console.log('BOOK STATE', !selectedFavBook.favorite);
+  }, [currentPage]);
+
+  useCallback(() => {}, [books]);
 
   return (
     <>
@@ -108,6 +131,26 @@ const Booklist: React.FC = () => {
           )}
         </ul>
       </div>
+      <Pagination>
+        <Pagination.Item onClick={() => setCurrentPage(1)}>{1}</Pagination.Item>
+
+        <Pagination.Prev
+          onClick={() => setCurrentPage(currentPage <= 1 ? 1 : currentPage - 1)}
+        />
+
+        <Pagination.Item active>{currentPage}</Pagination.Item>
+        <Pagination.Item onClick={() => setCurrentPage(currentPage + 1)}>
+          {currentPage + 1}
+        </Pagination.Item>
+        <Pagination.Item onClick={() => setCurrentPage(currentPage + 2)}>
+          {currentPage + 2}
+        </Pagination.Item>
+        <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} />
+        <Pagination.Item onClick={() => setCurrentPage(books.length ?? 10)}>
+          {books.length ?? 10}
+        </Pagination.Item>
+      </Pagination>
+
       {selectedBook && ( /// isso é um if, se selected boook tiver valor... chaves == jasvcriopst, p usar if tem q ter func, p abstrair usa isso
         <ModalBook
           book={selectedBook}

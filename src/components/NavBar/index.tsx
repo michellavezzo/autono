@@ -29,13 +29,18 @@ import * as faker from 'faker';
 
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
-  let favBooks = useSelector(
-    (state: ApplicationState) => state.books.favoriteBooks,
-  );
+  let selectorBooks = useSelector((state: ApplicationState) => state.books);
+
+  // let selectorPage = useSelector(
+  //   (state: ApplicationState) => state.books.atualPage,
+  // );
   const [bookSearch, setBookSearch] = useState<string>('');
   const [randomBookSearch, setRandomBookSearch] = useState<string>('');
   const [atualBooks, setAtualBooks] = useState<Book[]>([]);
   const [initialState, setInitialState] = useState<boolean>(false);
+  const [atualPage, setAtualPage] = useState<number>(
+    selectorBooks.atualPage ?? 0,
+  );
 
   //random book fake name.jobArea/jobType/ random.objectElement
   console.log(bookSearch);
@@ -48,7 +53,7 @@ const NavBar: React.FC = () => {
       if (bookSearch !== '') {
         api
           .get(
-            `volumes?q=${bookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=40`,
+            `volumes?q=${bookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=10&startIndex${selectorBooks.atualPage}`,
           )
           .then(response => {
             // setAtualBooks(response.data.items);
@@ -98,7 +103,7 @@ const NavBar: React.FC = () => {
 
     api
       .get(
-        `volumes?q=${randomBookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=40`,
+        `volumes?q=${randomBookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=10&startIndex${selectorBooks.atualPage}`,
       )
       .then(response => {
         // setAtualBooks(response.data.items);
@@ -116,15 +121,19 @@ const NavBar: React.FC = () => {
   }, [randomBookSearch]);
 
   const favoriteBooks = useCallback(() => {
-    if (favBooks) {
-      updateBookList(favBooks, favBooks?.length, 'Livros Favoritos');
+    if (selectorBooks.favoriteBooks) {
+      updateBookList(
+        selectorBooks.favoriteBooks,
+        selectorBooks.favoriteBooks?.length,
+        'Livros Favoritos',
+      );
     }
     //event.preventDefault(); //prevenir comportamento padrão de recarregfar a pageina
-    console.log('termo dentro do FAVBOOKS: ', favBooks);
+    console.log('termo dentro do FAVBOOKS: ', selectorBooks.favoriteBooks);
     console.log('dentro do randomBook');
 
     //updateBookList();
-  }, [favBooks]);
+  }, [selectorBooks.favoriteBooks]);
 
   function updateBookList(
     book: Book[],
@@ -134,9 +143,11 @@ const NavBar: React.FC = () => {
     setAtualBooks(book);
     // const searchTerm= isRandomSearch ? bookSearch : randomBookSearch;
     const favoriteBooks =
-      favBooks && favBooks.length && favBooks[0].id === undefined
+      selectorBooks.favoriteBooks &&
+      selectorBooks.favoriteBooks.length &&
+      selectorBooks.favoriteBooks[0].id === undefined
         ? []
-        : favBooks;
+        : selectorBooks.favoriteBooks;
     return dispatch(
       setBooks({
         book: book,

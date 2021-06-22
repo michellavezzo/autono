@@ -19,6 +19,7 @@ export interface BookState {
   length?: number;
   searchTerm?: string;
   favoriteBooks?: Book[];
+  atualPage?: number;
 }
 
 /**
