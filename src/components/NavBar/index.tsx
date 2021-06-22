@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import { Form, FormControl, Navbar, NavDropdown } from 'react-bootstrap';
 
 //Hooks, redux
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 //Api
 import api from '../../services/api';
@@ -21,6 +21,7 @@ import BookMark from '../../assets/bookmark-outline.svg';
 //Interface (types)
 import { Book, BookState } from '../../store/ducks/books/types';
 import { setBooks } from '../../store/ducks/books/actions';
+import { ApplicationState } from '../../store';
 
 //miscellaneous
 //import * as faker from 'faker';
@@ -28,7 +29,9 @@ import * as faker from 'faker';
 
 const NavBar: React.FC = () => {
   const dispatch = useDispatch();
-
+  let favBooks = useSelector(
+    (state: ApplicationState) => state.books.favoriteBooks,
+  );
   const [bookSearch, setBookSearch] = useState<string>('');
   const [randomBookSearch, setRandomBookSearch] = useState<string>('');
   const [atualBooks, setAtualBooks] = useState<Book[]>([]);
@@ -54,7 +57,7 @@ const NavBar: React.FC = () => {
             updateBookList(
               response.data.items,
               response.data.totalItems,
-              bookSearch,
+              'Livros sobre: ' + bookSearch,
             );
           })
           .catch(err => {
@@ -104,13 +107,24 @@ const NavBar: React.FC = () => {
         updateBookList(
           response.data.items,
           response.data.totalItems,
-          randomBookSearch,
+          'Livros sobre: ' + randomBookSearch,
         );
       })
       .catch(err => {
         console.log('randomSearch ERROR:', err);
       });
   }, [randomBookSearch]);
+
+  const favoriteBooks = useCallback(() => {
+    if (favBooks) {
+      updateBookList(favBooks, favBooks?.length, 'Livros Favoritos');
+    }
+    //event.preventDefault(); //prevenir comportamento padrão de recarregfar a pageina
+    console.log('termo dentro do FAVBOOKS: ', favBooks);
+    console.log('dentro do randomBook');
+
+    //updateBookList();
+  }, [favBooks]);
 
   function updateBookList(
     book: Book[],
@@ -119,11 +133,16 @@ const NavBar: React.FC = () => {
   ) {
     setAtualBooks(book);
     // const searchTerm= isRandomSearch ? bookSearch : randomBookSearch;
+    const favoriteBooks =
+      favBooks && favBooks.length && favBooks[0].id === undefined
+        ? []
+        : favBooks;
     return dispatch(
       setBooks({
         book: book,
         length: totalItems,
         searchTerm: searchTerm,
+        favoriteBooks: favoriteBooks ?? [],
       }),
     );
   }
@@ -157,7 +176,7 @@ const NavBar: React.FC = () => {
           <Nav className="ml-auto">
             <Button
               variant="btn btn-danger"
-              onClick={(event: any) => randomSearch()}
+              onClick={(event: any) => favoriteBooks()}
             >
               <img src={BookMark} alt="star" />
               Favoritos

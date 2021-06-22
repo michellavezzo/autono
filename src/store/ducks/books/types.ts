@@ -18,6 +18,7 @@ export interface BookState {
   book?: Book[];
   length?: number;
   searchTerm?: string;
+  favoriteBooks?: Book[];
 }
 
 /**
