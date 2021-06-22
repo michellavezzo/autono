@@ -53,7 +53,7 @@ const NavBar: React.FC = () => {
       if (bookSearch !== '') {
         api
           .get(
-            `volumes?q=${bookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=10&startIndex${selectorBooks.atualPage}`,
+            `volumes?q=${bookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=40&startIndex`,
           )
           .then(response => {
             // setAtualBooks(response.data.items);
@@ -70,29 +70,30 @@ const NavBar: React.FC = () => {
           });
       }
     },
-    [bookSearch],
+    [bookSearch, selectorBooks.atualPage],
   );
 
-  useEffect(() => {
-    randTerm();
-  }, [atualBooks]);
+  // useEffect(() => {
+  //   randTerm();
+  // }, [atualBooks]);
   //GETTING RANDOM BOOKS TO INITIAL STATE
 
   useEffect(() => {
-    randTerm();
     setInitialState(true);
-  }, []);
+  }, [atualBooks]);
   useEffect(() => {
     randomSearch();
   }, [initialState]);
 
-  const randTerm = () => {
-    if (faker.datatype.boolean()) {
-      console.log('FAKER SEARCH TERM: ', faker.name.jobArea());
-      setRandomBookSearch(faker.name.jobArea());
-    } else {
-      console.log('FAKER SEARCH TERM: ', faker.random.word());
-      setRandomBookSearch(faker.random.word());
+  const randTerm = (newTerm: boolean) => {
+    if (newTerm) {
+      if (faker.datatype.boolean()) {
+        console.log('FAKER SEARCH TERM: ', faker.name.jobArea());
+        setRandomBookSearch(faker.name.jobArea());
+      } else {
+        console.log('FAKER SEARCH TERM: ', faker.random.word());
+        setRandomBookSearch(faker.random.word());
+      }
     }
   };
 
@@ -100,10 +101,10 @@ const NavBar: React.FC = () => {
     //event.preventDefault(); //prevenir comportamento padrão de recarregfar a pageina
     console.log('termo dentro do random: ', randomBookSearch);
     console.log('dentro do randomBook');
-
+    randTerm(true);
     api
       .get(
-        `volumes?q=${randomBookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=10&startIndex${selectorBooks.atualPage}`,
+        `volumes?q=${randomBookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=40`,
       )
       .then(response => {
         // setAtualBooks(response.data.items);
@@ -118,7 +119,7 @@ const NavBar: React.FC = () => {
       .catch(err => {
         console.log('randomSearch ERROR:', err);
       });
-  }, [randomBookSearch]);
+  }, [randomBookSearch, selectorBooks.atualPage]);
 
   const favoriteBooks = useCallback(() => {
     if (selectorBooks.favoriteBooks) {
@@ -160,7 +161,7 @@ const NavBar: React.FC = () => {
 
   return (
     <>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light">
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Form inline onSubmit={search}>

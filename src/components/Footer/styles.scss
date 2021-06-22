@@ -2,31 +2,41 @@
 @import '../../common.scss';
 
 .footer-line {
-    background-color: $red;
-    width: auto;
-    height: 15px;
-    
+  background-color: $red;
+  width: auto;
+  height: 15px;
 }
 .footer-container {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+
+  h4 {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+  h3 {
+    margin-left: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+
+  .left {
+    margin-left: 18px;
+    flex-direction: row;
     display: flex;
-    flex-direction: column;
-    margin: 12px;
-
-    h4{
-        font-family: 'Roboto Condensed', sans-serif;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    margin-left: 38px;
+    img {
+      height: 150px;
+      border-radius: 2px;
     }
-
-    .left {
-        flex-direction: row;
-        display: flex;
-        img {
-            height: 150px;
-            border-radius: 2px;
-        }
-        .developer-info {
-            margin-left: 12px;
-        }
-
-
+    .developer-info {
+      margin-left: 12px;
     }
+    @media only screen and (max-width: 730px) {
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
 }

@@ -32,6 +32,9 @@ const Booklist: React.FC = () => {
   const localStorageBooks = JSON.parse(
     localStorage.getItem('favoriteBooks') as string,
   );
+  // const localStoragePage = JSON.parse(
+  //   localStorage.getItem('currentPage') as number,
+  // );
 
   //const [atualBooks, setAtualBooks] = useState<Book[]>([]);
   const [selectedBook, setSelectedBook] = useState<Book>(); //tipar obj as book
@@ -73,11 +76,13 @@ const Booklist: React.FC = () => {
   }, [selectedFavBook]);
 
   function updatePage(page: number) {
-    dispatch(
-      setBooks({
-        atualPage: page,
-      }),
-    );
+    if (books && books.length && books.book) {
+      dispatch(
+        setBooks({
+          atualPage: page,
+        }),
+      );
+    }
   }
   useEffect(() => {
     updatePage(currentPage);
@@ -85,7 +90,7 @@ const Booklist: React.FC = () => {
     //console.log('BOOK STATE', !selectedFavBook.favorite);
   }, [currentPage]);
 
-  useCallback(() => {}, [books]);
+  // useCallback(() => {}, [books]);
 
   return (
     <>
@@ -93,13 +98,16 @@ const Booklist: React.FC = () => {
         <h1>{books.searchTerm}</h1>
         <ul>
           {books.length == 0 ? (
-            <Spinner animation="border" variant="danger" />
+            <div className="spinner">
+              <Spinner animation="border" variant="danger " />
+            </div>
           ) : (
             books.book &&
             books.book.length &&
             books.book.map(book => (
               <li>
                 <img
+                  className="main-img"
                   src={
                     book.volumeInfo.imageLinks
                       ? book.volumeInfo.imageLinks.thumbnail
@@ -131,25 +139,6 @@ const Booklist: React.FC = () => {
           )}
         </ul>
       </div>
-      <Pagination>
-        <Pagination.Item onClick={() => setCurrentPage(1)}>{1}</Pagination.Item>
-
-        <Pagination.Prev
-          onClick={() => setCurrentPage(currentPage <= 1 ? 1 : currentPage - 1)}
-        />
-
-        <Pagination.Item active>{currentPage}</Pagination.Item>
-        <Pagination.Item onClick={() => setCurrentPage(currentPage + 1)}>
-          {currentPage + 1}
-        </Pagination.Item>
-        <Pagination.Item onClick={() => setCurrentPage(currentPage + 2)}>
-          {currentPage + 2}
-        </Pagination.Item>
-        <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} />
-        <Pagination.Item onClick={() => setCurrentPage(books.length ?? 10)}>
-          {books.length ?? 10}
-        </Pagination.Item>
-      </Pagination>
 
       {selectedBook && ( /// isso é um if, se selected boook tiver valor... chaves == jasvcriopst, p usar if tem q ter func, p abstrair usa isso
         <ModalBook

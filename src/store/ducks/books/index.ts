@@ -38,14 +38,22 @@ const reducer: Reducer<BookState> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case BookTypes.SET_BOOKS:
       updatedBookState = action.payload.data;
-      const localStorageBooks = JSON.parse(
+      // localStorage.setItem(
+      //   'currentPage',
+      //   JSON.stringify(updatedBookState.atualPage),
+      // );
+      const localStorageFavBooks = JSON.parse(
         localStorage.getItem('favoriteBooks') as string,
+      );
+      const localStoragePageBooks = parseInt(
+        JSON.parse(localStorage.getItem('currentPage') as string),
       );
 
       return {
         ...state,
         ...updatedBookState,
-        favoriteBooks: localStorageBooks ?? [],
+        favoriteBooks: localStorageFavBooks ?? [],
+        atualPage: localStoragePageBooks ?? 0,
       };
 
     case BookTypes.ADD_FAV_BOOK: // add
