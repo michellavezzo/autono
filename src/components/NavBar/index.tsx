@@ -42,23 +42,18 @@ const NavBar: React.FC = () => {
     selectorBooks.atualPage ?? 0,
   );
 
-  //random book fake name.jobArea/jobType/ random.objectElement
-  console.log(bookSearch);
-
   //useEWffect
   const search = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault(); //prevenir comportamento padrão de recarregfar a pageina
-      console.log('dentro do search');
+      //console.log('dentro do search');
       if (bookSearch !== '') {
         api
           .get(
-            `volumes?q=${bookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=40&startIndex`,
+            `volumes?q=${bookSearch}&key=${env.GOOGLE_API_KEY}&maxResults=40`,
           )
           .then(response => {
-            // setAtualBooks(response.data.items);
-            // setResponseLenght(response.data.totalItems); // apagar dps
-            console.log('RESPONSE ADAS: ', response.data.items);
+            //console.log('RESPONSE ADAS: ', response.data.items);
             updateBookList(
               response.data.items,
               response.data.totalItems,
@@ -74,13 +69,15 @@ const NavBar: React.FC = () => {
   );
 
   // useEffect(() => {
-  //   randTerm();
+  //   randTerm(true);
   // }, [atualBooks]);
   //GETTING RANDOM BOOKS TO INITIAL STATE
 
   useEffect(() => {
+    randTerm(true);
     setInitialState(true);
   }, [atualBooks]);
+
   useEffect(() => {
     randomSearch();
   }, [initialState]);
@@ -99,8 +96,8 @@ const NavBar: React.FC = () => {
 
   const randomSearch = useCallback(() => {
     //event.preventDefault(); //prevenir comportamento padrão de recarregfar a pageina
-    console.log('termo dentro do random: ', randomBookSearch);
-    console.log('dentro do randomBook');
+    //console.log('termo dentro do random: ', randomBookSearch);
+    //console.log('dentro do randomBook');
     randTerm(true);
     api
       .get(
@@ -109,7 +106,7 @@ const NavBar: React.FC = () => {
       .then(response => {
         // setAtualBooks(response.data.items);
         // setResponseLenght(response.data.totalItems); // apagar dps
-        console.log('RESPONSE: ', response.data.items);
+        //console.log('RESPONSE: ', response.data.items);
         updateBookList(
           response.data.items,
           response.data.totalItems,
@@ -130,8 +127,8 @@ const NavBar: React.FC = () => {
       );
     }
     //event.preventDefault(); //prevenir comportamento padrão de recarregfar a pageina
-    console.log('termo dentro do FAVBOOKS: ', selectorBooks.favoriteBooks);
-    console.log('dentro do randomBook');
+    //console.log('termo dentro do FAVBOOKS: ', selectorBooks.favoriteBooks);
+    //console.log('dentro do randomBook');
 
     //updateBookList();
   }, [selectorBooks.favoriteBooks]);
@@ -155,6 +152,7 @@ const NavBar: React.FC = () => {
         length: totalItems,
         searchTerm: searchTerm,
         favoriteBooks: favoriteBooks ?? [],
+        atualPage: 1,
       }),
     );
   }
@@ -165,12 +163,14 @@ const NavBar: React.FC = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Form inline onSubmit={search}>
-              <FormControl
-                type="text"
-                placeholder="Comece por aqui"
-                className="mr-sm-2"
-                onChange={event => setBookSearch(event.target.value)}
-              />
+              <div className="form">
+                <FormControl
+                  type="text"
+                  placeholder="Comece por aqui"
+                  className="mr-sm-2"
+                  onChange={event => setBookSearch(event.target.value)}
+                />
+              </div>
               <Button
                 variant="btn btn-danger"
                 onClick={(event: any) => search(event)}
